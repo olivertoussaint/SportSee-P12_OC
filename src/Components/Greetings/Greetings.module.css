@@ -1,0 +1,26 @@
+.container {
+  height: 14rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.greetings,
+.name {
+  font-size: 48px;
+}
+
+.congrats {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  position: relative;
+  top: 37px;
+  width: 420px;
+  height: 24px;
+}
+
+.name {
+  margin-left: 5px;
+  color: var(--red);
+}

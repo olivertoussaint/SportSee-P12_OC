@@ -1,8 +1,12 @@
 :root {
-  --black: #020203;
-  --red: #ff0101;
-  --white: #fff;
-  --bg: #fbfbfb;
+  --primary: #88d5bf;
+  --secondary: #5d6bf8;
+  --third: #e27fcb;
+  --black: hsla(240, 20%, 1%, 1);
+  --red: hsl(0, 100%, 50%);
+  --white: hsla(0, 0%, 100%, 1);
+  --bg1: hsla(0, 0%, 0%, 0.02);
+  --bg: linear-gradient(#a9e664a7, #db7b7b89);
   --grey: rgb(128, 128, 128);
   --performance: #282d30;
   --fs-header: 16px;

@@ -2,7 +2,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home from './Pages/Home/Home';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import Error from './Pages/Error/Error';
-;// import './App.css';
+import './App.css';
 
 function App() {
   return (
