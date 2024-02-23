@@ -30,3 +30,8 @@
   line-height: 24px;
   list-style-type: none;
 }
+
+a {
+  text-decoration: none;
+}
+

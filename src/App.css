@@ -3,18 +3,20 @@
   --secondary: #5d6bf8;
   --third: #e27fcb;
   --black: hsla(240, 20%, 1%, 1);
+  --blackLegend: hsla(229, 28%, 18%, 1);
   --red: hsl(0, 100%, 50%);
   --white: hsla(0, 0%, 100%, 1);
   --bg1: hsla(0, 0%, 0%, 0.02);
-  --bg: linear-gradient(#a9e664a7, #db7b7b89);
+  --bg: linear-gradient(#64d9e6a7, #a57bdb89);
   --grey: rgb(128, 128, 128);
   --performance: #282d30;
   --fs-header: 16px;
   --fs-big: 48px;
   --fs-normal: 18px;
-  --fs-medium: 16px;
+  --fs-medium: 15px;
   --fs-small: 14px;
   --fs-xsmall: 12px;
+  --legend: hsla(228, 9%, 50%, 1);
 }
 
 *,

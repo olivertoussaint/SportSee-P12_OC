@@ -13,13 +13,25 @@
   flex-direction: column;
   align-items: center;
   width: 36rem;
+  height: 395px;
   text-align: center;
   border-radius: 20px;
-  background-color: #f7f7f7;
+  background-color: #efecef;
   box-shadow: 3px 3px rgba(163, 208, 204, 0.52), -0.5em 0 0.4em #d4bde4;
 }
 .img {
   width: 16rem;
+}
+.userWrapp {
+  display: flex;
+}
+.avatar {
+  height: 100px;
+  width: 100px;
+  /* position: relative; */
+  /* right: -86px; */
+  animation: morph 10s ease-in-out infinite;
+  box-shadow: 4px 3px 5px #8f6791;
 }
 #effect {
   border-style: solid;
@@ -39,6 +51,50 @@
 label {
   margin-left: 10px;
 }
+
+.checkboxWrapper input[type='checkbox'] {
+  background-image: -webkit-linear-gradient(
+      hsla(0, 0%, 0%, 0.1),
+      hsla(0, 0%, 100%, 0.1)
+    ),
+    -webkit-linear-gradient(left, #a9396d 50%, #6cff00 50%);
+  background-size: 100% 100%, 200% 100%;
+  background-position: 0 0, 15px 0;
+  border-radius: 25px;
+  box-shadow: inset 0 1px 4px hsl(0deg 0% 99.73% / 38%),
+    inset 0 0 0px hsl(86.28deg 78.35% 47.32%),
+    0 0 0 8px hsl(0deg 93.19% 48.98% / 10%),
+    0 -1px 2px 2px hsla(0, 0%, 0%, 0.25), 0 2px 2px 2px hsla(0, 0%, 100%, 0.75);
+  cursor: pointer;
+  height: 25px;
+  padding-right: 25px;
+  width: 75px;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-transition: 0.25s;
+  transition: 0.25s;
+}
+.checkboxWrapper input[type='checkbox']:after {
+  background-color: #eee;
+  background-image: -webkit-linear-gradient(
+    hsla(0, 0%, 100%, 0.1),
+    hsla(0, 0%, 0%, 0.1)
+  );
+  border-radius: 25px;
+  box-shadow: inset 0 1px 1px 1px hsla(0, 0%, 100%, 1),
+    inset 0 -1px 1px 1px hsla(0, 0%, 0%, 0.25),
+    0 1px 3px 1px hsla(0, 0%, 0%, 0.5), 0 0 2px hsla(0, 0%, 0%, 0.25);
+  content: '';
+  display: block;
+  height: 25px;
+  width: 50px;
+}
+.checkboxWrapper input[type='checkbox']:checked {
+  background-position: 0 0, 35px 0;
+  padding-left: 25px;
+  padding-right: 0;
+}
+
 .btn {
   background: var(--bg);
   border: none;
@@ -49,11 +105,15 @@ label {
   font-weight: 700;
   padding: 14px 70px;
   margin: 0 10px 20px 10px;
+  position: relative;
+  bottom: -20px;
 }
 hr {
   border: none;
   border-top: 3px double;
-  text-align: center;
+  width: 271px;
+  position: relative;
+  right: -153px;
 }
 .btn:hover {
   color: var(--white);
@@ -71,7 +131,7 @@ hr {
   }
 
   50% {
-    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    border-radius: 30% 60% 10% 40% / 50% 60% 30% 60%;
     background: linear-gradient(45deg, var(--third) 0%, var(--secondary) 100%);
   }
 
