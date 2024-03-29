@@ -1,9 +1,15 @@
 import activityFormat from './activityFormat'
+import averageSessionFormat from './averageSessionFormat';
 
 
 
-const globalFormat = ({ activitySessions, user }) => {
+const globalFormat = ({ 
+  activitySessions,
+   user,
+   averageSessions
+   }) => {
   const activitySection = activityFormat(activitySessions)
+  const averageSection = averageSessionFormat(averageSessions)
   const nameDisplay = user.userInfos.firstName
   const nutricard = user.keyData
   const calories = `${nutricard.calorieCount}Kcal`
@@ -13,6 +19,7 @@ const globalFormat = ({ activitySessions, user }) => {
 
   return {
     activitySection,
+    averageSection,
     nameDisplay,
     calories,
     protein,

@@ -1,0 +1,18 @@
+.title {
+      position: absolute;
+      margin-left: 22px;
+      margin-top: 22px;
+      color: hsla(229, 28%, 18%, 1);
+      font-size: 15px ;
+      line-height: 24px;
+
+}
+.customParagraph {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      color: hsla(228, 9%, 50%, 1);      
+      line-height: 26px;
+      position: relative;
+    top: -5px;
+}

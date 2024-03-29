@@ -261,21 +261,17 @@ const USER_PERFORMANCE = [
 ]
 
 function getMockDataApi(id) {
-  const userData = USER_MAIN_DATA.find((data) => data.id === id);
-  if (!userData) {
-    return null; // Renvoie null si l'ID de l'utilisateur n'est pas trouvé
+  if (id !== 12 && id !== 18) {
+    return null;
   }
-
-  const activitySessions = USER_ACTIVITY.find(
-    (data) => data.userId === id
-  ).sessions;
-  const averageSessions = USER_AVERAGE_SESSIONS.find(
-    (data) => data.userId === id
-  ).sessions;
+  
+  const user = USER_MAIN_DATA.find((data) => data.id === id);
+  const activitySessions = USER_ACTIVITY.find((data) => data.userId === id).sessions;
+  const averageSessions = USER_AVERAGE_SESSIONS.find((data) => data.userId === id);
   const performances = USER_PERFORMANCE.find((data) => data.userId === id);
 
   return {
-    user: userData,
+    user,
     activitySessions,
     averageSessions,
     performances,

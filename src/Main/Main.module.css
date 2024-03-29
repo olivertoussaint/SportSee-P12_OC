@@ -1,34 +1,35 @@
 .container {
-  margin: 0 auto;
-  max-width: 1400px;
-  width: calc(100% - 4rem);
+  position: relative;
+  width: calc(100vw - 117px);
+  padding: 2% 5% 0 5%;
 }
 
 .mainWrap {
   width: 100%;
   display: flex;
   margin-bottom: 2rem;
-  height: 60vh;
+  height: 779px;
+  gap: 25px;
 }
 
 .chartContainer {
-  width: 75%;
+  width: 835px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
 .cardWrap {
-  width: 25%;
+  width: 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  background: var(--bg1)
+  gap: 43px;
 }
 
 .bottomCharts {
-  height: 330px;
+  position: relative;
+  bottom: 156px;
   display: flex;
   width: 100%;
   align-items: flex-end;

@@ -1,7 +1,6 @@
 const dayToDate = (date) => {
       const d = new Date(date);
       let day = d.getDate();
-      console.log(day)
       return day;
     };
     

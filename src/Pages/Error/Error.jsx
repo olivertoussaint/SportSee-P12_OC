@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 
 function error() {
   return (
-    <>
+    <div className={styles.container}>
       <main className={styles.wrapper}>
         <section className={styles.display}>
           <h1 className={styles.error}>
@@ -22,7 +22,7 @@ function error() {
           </NavLink>
         </section>
       </main>
-    </>
+    </div>
   )
 }
 

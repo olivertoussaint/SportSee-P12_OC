@@ -1,7 +1,7 @@
 .cardWrap {
-  width: 90%;
-  height: 100px;
-  background-color: var(--bg);
+  width: 258px;
+  height: 124px;
+  background: var(--bg1); 
   border-radius: 5px;
   display: flex;
   align-items: center;

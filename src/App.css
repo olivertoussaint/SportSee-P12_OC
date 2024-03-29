@@ -6,7 +6,9 @@
   --blackLegend: hsla(229, 28%, 18%, 1);
   --red: hsl(0, 100%, 50%);
   --white: hsla(0, 0%, 100%, 1);
+  --white2: hsla(0, 0%, 100%, 0.4);
   --bg1: hsla(0, 0%, 0%, 0.02);
+  --bg2: hsla(0, 0%, 98%, 1);
   --bg: linear-gradient(#64d9e6a7, #a57bdb89);
   --grey: rgb(128, 128, 128);
   --performance: #282d30;
@@ -17,6 +19,11 @@
   --fs-small: 14px;
   --fs-xsmall: 12px;
   --legend: hsla(228, 9%, 50%, 1);
+  --d3Text :hsla(228, 9%, 64%, 1);
+  --d3Line: hsla(0, 0%, 87%, 1);
+  --bgd3graph2:hsla(0, 100%, 50%, 1);
+  --bgPerformance:hsla(203, 9%, 17%, 1);
+  --bgtooltip:hsla(0, 100%, 45%, 1);
 }
 
 *,

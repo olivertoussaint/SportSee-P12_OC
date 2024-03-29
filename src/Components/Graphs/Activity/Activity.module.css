@@ -1,16 +1,16 @@
 .container {
-  background-color: beige;
+  background-color: var(--bg2);
   padding-top: 24px;
   padding-left: 25px;
   padding-right: 22px;
   border-radius: 5px;
   height: 100%;
 }
-.graph-container {
+/* .graph-container {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
     .legend,
     .legendElements,
@@ -18,7 +18,7 @@
     .legend2 {
       display: flex;
     }
-    
+  
     .legend {
       justify-content: space-between;
       margin-bottom: 2rem;
@@ -44,3 +44,19 @@
     img {
       margin-right: 10px;
     }
+    /* Styles pour les barres */
+.bar {
+  opacity: 0.8; /* ajustez l'opacité comme nécessaire */
+}
+
+.barKg {
+  fill: black; /* couleur des barres de poids */
+}
+
+.barCalories {
+  fill: red; /* couleur des barres de calories */
+}
+
+.barGroupHover {
+  background-color: grey;
+}

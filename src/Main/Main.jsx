@@ -12,7 +12,8 @@ import { ReactComponent as AppleIcon } from '../../src/assets/nutrition-icons/ap
 import { ReactComponent as ChickenIcon } from '../../src/assets/nutrition-icons/chicken-icon.svg'
 import { ReactComponent as CheeseburgerIcon } from '../../src/assets/nutrition-icons/cheeseburger-icon.svg'
 // import AverageSession from '../Components/Graphs/AverageSession/AverageSession'
-import Test from '../Components/Graphs/Test/Test'
+import Performance from '../Components/Graphs/Performance/Performance'
+import PieChart from '../Components/Graphs/Score/Score'
 
 function Main() {
   const { data, loading, dataSource, error } = useFetch()
@@ -29,7 +30,9 @@ function Main() {
             <Activity data={data.activitySection} />
           </div>
           <div className={styles.bottomCharts}>
-            <Test />
+            {/* <AverageSession /> */}
+            <Performance />
+            <PieChart />
           </div>
         </div>
         <div className={styles.cardWrap}>
