@@ -11,9 +11,9 @@ import { ReactComponent as FireIcon } from '../../src/assets/nutrition-icons/fir
 import { ReactComponent as AppleIcon } from '../../src/assets/nutrition-icons/apple-icon.svg'
 import { ReactComponent as ChickenIcon } from '../../src/assets/nutrition-icons/chicken-icon.svg'
 import { ReactComponent as CheeseburgerIcon } from '../../src/assets/nutrition-icons/cheeseburger-icon.svg'
-// import AverageSession from '../Components/Graphs/AverageSession/AverageSession'
+import AverageSession from '../Components/Graphs/AverageSession/AverageSession'
 import Performance from '../Components/Graphs/Performance/Performance'
-import PieChart from '../Components/Graphs/Score/Score'
+import Score from '../Components/Graphs/Score/Score'
 
 function Main() {
   const { data, loading, dataSource, error } = useFetch()
@@ -30,9 +30,9 @@ function Main() {
             <Activity data={data.activitySection} />
           </div>
           <div className={styles.bottomCharts}>
-            {/* <AverageSession /> */}
-            <Performance />
-            <PieChart />
+            <AverageSession data={data.averageSection}/>
+            <Performance data={data.performanceSection}/>
+            <Score />
           </div>
         </div>
         <div className={styles.cardWrap}>

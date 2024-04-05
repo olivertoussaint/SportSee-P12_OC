@@ -2,9 +2,11 @@ import React, { useRef, useEffect, useState } from 'react';
 import styles from './Score.module.css'; 
 import * as d3 from 'd3';
 
-const PerformanceChart = () => {
+const Score = () => {
   const svgRef = useRef();
+  // eslint-disable-next-line no-unused-vars
   const [data, setData] = useState([100, 30]); // Exemple de données, chaque valeur représente un segment en pourcentage
+  // Utiliser setData dans le futur pour mettre à jour les données
 
   useEffect(() => {
     const svg = d3.select(svgRef.current);
@@ -77,9 +79,9 @@ const PerformanceChart = () => {
   return (
     <div className={styles.container}>
       <p className={styles.title}>Score</p>
-      <svg ref={svgRef} width={258} height={263} style={{ borderRadius: '10px', backgroundColor: 'var(--bg2)' }}></svg>
+      <svg ref={svgRef} width={258} height={263}></svg>
     </div>
   );
 };
 
-export default PerformanceChart;
+export default Score;

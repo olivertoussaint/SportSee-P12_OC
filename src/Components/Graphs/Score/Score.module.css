@@ -1,3 +1,8 @@
+.container {
+      border-radius: 5px;
+      background-color:var(--bg2);
+}
+
 .title {
       position: absolute;
       margin-left: 22px;
@@ -14,5 +19,5 @@
       color: hsla(228, 9%, 50%, 1);      
       line-height: 26px;
       position: relative;
-    top: -5px;
+      top: -5px;
 }

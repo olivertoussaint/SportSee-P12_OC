@@ -1,133 +1,101 @@
-import React, { useEffect } from 'react';
-import * as d3 from "d3";
+import React, { useEffect, useRef } from 'react';
+import * as d3 from 'd3';
+import styles from './AverageSession.module.css';
 import PropTypes from 'prop-types';
 
-function AverageSession(props) {
-  const userDatas = props.data.sessions;
+const AverageSession = ({ data }) => {
+  const chartRef = useRef(null);
 
   useEffect(() => {
-    draw(userDatas);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userDatas]);
+    if (!data || data.length === 0) {
+      return;
+    }
 
-  function draw(userData) {
-    if (!userData) return;
+    const margin = { top: 20, right: 5, bottom: 30, left: 5 };
+    const width = 258 - margin.left - margin.right;
+    const height = 263 - margin.top - margin.bottom;
 
-    // Création des dimensions nécessaires dans des variables
-    let margin = { top: 20, right: 20, bottom: 0, left: 20 };
-    let height = 263 - margin.top - margin.bottom;
-    // Create the chart
-    let chart = d3.select(".lineChart")
-    .append("svg")
-    .attr("width", "100%")
-    .attr("height", "100%");
-    // Clean the svg chart if the component re-render
-    chart.selectAll(".lineChart .d3").remove();
-    let min = d3.min(userData, d => d.sessionLength);
-    let max = d3.max(userData, d => d.sessionLength);
-    let xScale = d3.scaleLinear()
-    .domain([0.5, 7.5])
-    .range([-50, 200]);
-    let yScale = d3.scaleLinear()
-    .domain([min, max + 30])
-    .range([height - 40, 0]);
-    // Register the line
-    let line = d3.line()
-    .x(d => xScale(d.day))
-    .y(d => yScale(d.sessionLength))
-    .curve(d3.curveMonotoneX);
-    const linePath = line(userData);
-    // Draw the path
-    chart.append("path")
-    .datum(userData)
-    .attr("d", linePath)
-    .attr("class", "d3")
-    .attr("stroke", "white")
-    .attr("stroke-width", "3")
-    .attr("fill", "none");
-    // Add coordinates for the points to draw info box, transparent div...
-    getPathCoordinates(userData, xScale, yScale).forEach((coordinates, index) => {
-      let group = chart.append("g")
-      .attr("id", "session" + index)
-      .attr("class", "d3");
-      group.append("rect")
-      .attr("x", coordinates.x + 41)
-      .attr("y", 0)
-      .attr("width", "100%")
-      .attr("height", "100%")
-      .attr("class", "d3")
-      .attr("fill", "rgba(17, 24, 39, 0.3)")
-      .attr("opacity", "0");
-      group.append("rect")
-      .attr("x", getBubbleXCoordinate(coordinates.x) + 51)
-      .attr("y", coordinates.y - 25)
-      .attr("class", "d3")
-      .attr("width", "50")
-      .attr("height", 30)
-      .attr("fill", "white")
-      .attr("opacity", "0");
-      group.append("text")
-      .attr("x", getBubbleXCoordinate(coordinates.x) + 76)
-      .attr("y", coordinates.y - 7)
-      .style("text-anchor", "middle")
-      .attr("class", "d3")
-      .text(userData[index].sessionLength + "min")
-      .attr("opacity", "0");
-      group.append("circle")
-      .attr("class", "d3")
-      .attr("cx", coordinates.x)
-      .attr("cy", coordinates.y)
+    const x = d3.scalePoint().range([0, width]).padding(0.1);
+    const y = d3.scaleLinear().range([height, 0]);
+
+    const line = d3.line()
+      .x((d) => x(d.day))
+      .y((d) => y(d.sessionLength))
+      .curve(d3.curveCardinal);
+
+    const svg = d3.select(chartRef.current);
+    svg.selectAll('*').remove();
+
+    const chart = svg.append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+
+    x.domain(data.map((d) => d.day));
+
+    // Vérifie l'URL actuelle pour déterminer le domaine de l'échelle y
+    if (window.location.pathname.includes('/user/18')) {
+      y.domain([25, d3.max(data, (d) => d.sessionLength + 10)]);
+    } else if (window.location.pathname.includes('/user/12')) {
+      y.domain([-10, d3.max(data, (d) => d.sessionLength + 5)]);
+    }
+
+    chart.append('g')
+      .attr('transform', `translate(0, ${height})`)
+      .call(d3.axisBottom(x).tickSize(0)
+        .tickFormat((d) => {
+          if (d === 'Ma' || d === 'Me') return 'M'; // Remplace "Ma" et "Me" par "M"
+          return d;
+        })
+      )
+      .selectAll('.tick text')
+      .style('fill', 'white'); // Applique la couleur blanche aux étiquettes
+
+    chart.select('.domain')
+      .style('stroke', 'none');
+
+    // Ajout des cercles représentant les points de données
+    chart.selectAll("circle")
+      .data(data)
+      .enter().append("circle")
+      .attr("cx", (d) => x(d.day))
+      .attr("cy", (d) => y(d.sessionLength))
       .attr("r", 4)
-      .attr("opacity", "0")
-      .attr("fill", "white");
-      // hitbox
-      chart.append("rect")
-      .attr("x", coordinates.x + 21)
-      .attr("y", 0)
-      .attr("width", 41)
-      .attr("height", 300)
-      .attr("class", "d3")
-      .attr("opacity", "0")
-      .on("mouseover", function () {
-        d3.selectAll(`#session${index} > *`)
-        .transition()
-        .attr("opacity", "1");
+      .attr("fill", "white")
+      // Ajout d'un tooltip sur le survol des cercles
+      .on("mouseover", function(event, d) {
+        const [xPos, yPos] = d3.pointer(event);
+        d3.select("#tooltip")
+          .style("opacity", 1)
+          .html(`${d.sessionLength}min`)
+          .style("left", (xPos + 10) + "px")
+          .style("top", (yPos + 10) + "px");
       })
-      .on("mouseout", function () {
-        d3.selectAll(`#session${index} > *`)
-        .transition()
-        .attr("opacity", "0");
+      .on("mouseout", function() {
+        d3.select("#tooltip").style("opacity", 0);
       });
-    });
-  }
 
-  // Function to get the coordinates of the points to draw
-  function getPathCoordinates(dataPoints, xScale, yScale) {
-    let coordinates = dataPoints.map((point, index) => (
-      { x: xScale(index + 1), y: yScale(point.sessionLength) }
-    ));
-    return coordinates;
-  }
+    // Ajout de la ligne
+    chart.append('path')
+      .datum(data)
+      .attr('fill', 'none')
+      .attr('stroke', 'white')
+      .attr('stroke-width', 1.5)
+      .attr('d', line);
 
-  // Function to make the last day box appear on the chart and not outside
-  function getBubbleXCoordinate(x) {
-    if (x <= 170)
-      return x;
-    else return 125;
-  }
+  }, [data]);
 
   return (
-    <div className="lineChart" >
-      <p className="lineChart-title">
-        Durée moyenne des sessions
-      </p>
-      <div className="days"> <p>L</p> <p>M</p> <p>M</p> <p>J</p> <p>V</p> <p>S</p> <p>D</p> </div>
+    <div className={styles.container}>
+      <h3>Durée moyenne des sessions</h3>
+      {/* Tooltip */}
+      <div id="tooltip" className={styles.tooltip}></div>
+      {/* Graphique */}
+      <svg ref={chartRef} width="258" height="263"></svg>
     </div>
   );
 }
 
 AverageSession.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.array.isRequired,
 };
 
 export default AverageSession;

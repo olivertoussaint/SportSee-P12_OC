@@ -17,11 +17,14 @@ const Activity = ({ data }) => {
 
     const containerWidth = 702;
     const containerHeight = 145;
-    const margin = { top: 20, right: -85, bottom: 30, left: -8 };
+    const margin = { top: 20, right: -80, bottom: 30, left: -14 };
     const width = containerWidth - margin.left - margin.right;
     const height = containerHeight - margin.top - margin.bottom;
-    const yAxisOffset = 20; // Augmenter l'offset pour aller plus à droite
-    const xAxisOffset = -34; // Décalage de l'axe des abscisses vers la gauche
+    const yAxisOffset = -30; // Ajuster l'offset pour déplacer l'axe des y vers la gauche
+    const xAxisOffset = -34; // Décalage de l'axe des x vers la gauche
+
+    // Ajustez la largeur du conteneur SVG pour inclure l'axe des y à droite
+    const svgWidth = containerWidth + Math.abs(margin.left) + Math.abs(margin.right) + yAxisOffset;
 
     const x = d3
       .scaleBand()
@@ -43,9 +46,10 @@ const Activity = ({ data }) => {
 
     const svg = d3
       .select(svgRef.current)
-      .attr('width', containerWidth)
+      .attr('width', svgWidth) // Ajustez la largeur du conteneur SVG
       .attr('height', containerHeight)
       .append('g')
+      .attr('class', 'y-axis-right') // Ajoutez la classe y-axis-right ici
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
     const tooltip = d3.select(tooltipRef.current)
@@ -57,7 +61,7 @@ const Activity = ({ data }) => {
       .style('height', '63px')
       .style('line-height', '24px')
       .style('text-align', 'center')
-      .style('font-size', '7px'); // Ajoutez cette ligne pour définir la taille de la police
+      .style('font-size', '7px');
 
     const barGroups = svg.selectAll('.bars')
       .data(data)
@@ -71,9 +75,12 @@ const Activity = ({ data }) => {
         const xPosition = event.pageX - tooltipWidth + 40;
         const yPosition = event.pageY - parseFloat(tooltip.style('height')) - 50;
 
+        // Ajuster la position x du tooltip pour le décaler vers la gauche
+        const adjustedXPosition = xPosition - 40;
+
         tooltip
           .style('opacity', 1)
-          .style('left', xPosition + 'px')
+          .style('left', adjustedXPosition + 'px')
           .style('top', yPosition + 'px')
           .html(`${kilogram}Kg<br>${calories}Kcal`);
       })
@@ -83,7 +90,7 @@ const Activity = ({ data }) => {
 
     barGroups.append('rect')
       .attr('class', 'bar barKg')
-      .attr('x', (d) => x(d.day))
+      .attr('x', (d) => x(d.day) + 3) // Décalage vers la droite
       .attr('y', (d) => yKg(d.kilogram))
       .attr('width', x.bandwidth() / 14)
       .attr('height', (d) => height - yKg(d.kilogram))
@@ -93,7 +100,7 @@ const Activity = ({ data }) => {
 
     barGroups.append('rect')
       .attr('class', 'bar barCalories')
-      .attr('x', (d) => x(d.day) + x.bandwidth() / 6)
+      .attr('x', (d) => x(d.day) + x.bandwidth() / 6 + 2 ) // Décalage vers la droite
       .attr('y', (d) => yCalories(d.calories))
       .attr('width', x.bandwidth() / 14)
       .attr('height', (d) => height - yCalories(d.calories))
@@ -110,12 +117,12 @@ const Activity = ({ data }) => {
       .tickFormat((d) => d );
 
     const yAxisRightGroup = svg.append('g')
-      .attr('class', 'y-axis-right')
-      .attr('transform', `translate(${containerWidth + yAxisOffset}, 0)`) // Ajout de l'offset
+      .attr('class', `${styles.yAxisRight}`)
+      .attr('transform', `translate(${containerWidth + Math.abs(margin.right) + yAxisOffset}, 0)`)
       .call(yAxisRight);
 
-    yAxisRightGroup.select('.domain').remove(); // Supprimer la ligne verticale
-    yAxisRightGroup.selectAll('.tick line').remove(); // Supprimer les marques
+    yAxisRightGroup.select('.domain').remove();
+    yAxisRightGroup.selectAll('.tick line').remove();
 
     const xAxis = d3.axisBottom(x)
       .tickSizeOuter(0);
@@ -126,7 +133,7 @@ const Activity = ({ data }) => {
       .selectAll('text')
       .style('text-anchor', 'end')
       .attr('y', 10)
-      .attr('dx', `${xAxisOffset}px`) // Ajout de l'offset
+      .attr('dx', `${xAxisOffset}px`)
       .style('fill', 'lightgrey');
 
     svg.select('.x-axis')

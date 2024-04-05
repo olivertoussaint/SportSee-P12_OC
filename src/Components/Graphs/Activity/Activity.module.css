@@ -57,6 +57,8 @@
   fill: red; /* couleur des barres de calories */
 }
 
-.barGroupHover {
-  background-color: grey;
+.yAxisRight {
+  position: absolute;
+  top: 20px; /* Ajustez la position verticale selon vos besoins */
+  right: 20px; /* Ajustez la position horizontale selon vos besoins */
 }

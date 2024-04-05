@@ -2,7 +2,7 @@
   width: 258px;
   height: 263px;
   background-color: var(--red);
-  border-radius: 10px;
+  border-radius: 5px;
   position: relative;
 }
 
@@ -10,6 +10,29 @@
   color: var(--white);
   font-size: 14px;
   position: absolute;
+  width: 150px;
+  height: 50px;
   top: 1rem;
   left: 1rem;
+}
+.circle {
+  fill: white;
+  opacity: 0; /* Initialement invisible */
+}
+ /* .circle :hover {
+  opacity: 1;
+ } */
+
+ .text{
+  fill: var(--white); 
+}
+
+.tooltip {
+  position: absolute;
+  background-color: white; 
+  color: black; 
+  padding: 8px;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0;
 }

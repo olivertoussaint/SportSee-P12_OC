@@ -1,12 +1,15 @@
-const days = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+const days = ['L', 'Ma', 'Me', 'J', 'V', 'S', 'D'];
 
-const averageSessionFormat = (sessionsObj) => {
-      const sessions = sessionsObj.sessions;
-      console.log(sessionsObj)
-      return sessions.map(({ day, sessionLength }) => ({
-        day: days[day -1],
-        sessionLength,
-      }))
-    }
+const averageSessionFormat = (sessions) => {
+  if (typeof sessions !== 'object' || !Array.isArray(sessions.sessions)) {
+    console.error("sessions n'est pas un objet avec une propriété sessions qui est un tableau :", sessions);
+    return [];
+  }
 
-export default averageSessionFormat
+  return sessions.sessions.map(({ day, sessionLength }) => ({
+    day: days[day - 1],
+    sessionLength,
+  }));
+}
+
+export default averageSessionFormat;

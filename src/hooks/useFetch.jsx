@@ -11,11 +11,10 @@ import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
  */
 
 const formatApiResponse = (data) => {
-  console.log(data)
-  const activitySessions = data.activity.data.data.sessions;
-  const performances = data.performance.data.data;
   const user = data.user.data.data;
+  const activitySessions = data.activity.data.data.sessions;
   const averageSessions = data.averageSessions.data.data.sessions;
+  const performances = data.performance.data.data;
   return { activitySessions, performances, user, averageSessions };
 };
 
