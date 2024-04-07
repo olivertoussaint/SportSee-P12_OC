@@ -33,7 +33,7 @@ const Performance = ({ data }) => {
       .range([0, radius]);
 
     const radarLine = d3.lineRadial()
-      .radius(d => Math.min(rScale(d.value), radius -20)) // Limite la longueur de la ligne du radar
+      .radius(d => Math.min(rScale(d.value), radius -10)) // Limite la longueur de la ligne du radar
       .angle((d, i) => i * angleSlice);
 
     // Ajouter les rayons du radar

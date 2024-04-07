@@ -1,64 +1,78 @@
 .container {
   background-color: var(--bg2);
-  padding-top: 24px;
-  padding-left: 25px;
-  padding-right: 22px;
   border-radius: 5px;
-  height: 100%;
+  width: calc(882px - 47px);
+  height: 320px;
 }
-/* .graph-container {
+
+.legend,
+.legendElements,
+.legend1,
+.legend2 {
   display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
-    .legend,
-    .legendElements,
-    .legend1,
-    .legend2 {
-      display: flex;
-    }
-  
-    .legend {
-      justify-content: space-between;
-      margin-bottom: 2rem;
-      margin-left: 6px;
-      margin-right: 1rem;
 }
 
- .legend > h3  {
-      color: var(--blackLegend);
-      font-size: var(--fs-medium);
-      line-height: 24px;
-    }
-    
-    .legend1,
-    .legend2 {
-      color: var(--legend);
-      align-items: center;
-      margin-left: 1rem;
-      font-size: var(--fs-small);
-      line-height: 24px;
-    }
-    
-    img {
-      margin-right: 10px;
-    }
-    /* Styles pour les barres */
-.bar {
-  opacity: 0.8; /* ajustez l'opacité comme nécessaire */
+.legend {
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding: 1rem;
+}
+
+.legend > h3 {
+  color: var(--blackLegend);
+  font-size: var(--fs-medium);
+  line-height: 24px;
+}
+
+.legend1,
+.legend2 {
+  color: var(--legend);
+  align-items: center;
+  margin-left: 1rem;
+  font-size: var(--fs-small);
+  line-height: 24px;
+}
+.container svg {
+  width: calc(100% - 20px);
+  height: calc(100% - 120px);
+}
+
+img {
+  margin-right: 10px;
 }
 
 .barKg {
-  fill: black; /* couleur des barres de poids */
+  fill: var(--blackColor); /* couleur des barres de poids */
 }
 
 .barCalories {
-  fill: red; /* couleur des barres de calories */
+  fill: var(--redColor) ;/* couleur des barres de calories */
 }
 
-.yAxisRight {
+
+/* .xAxis line {
+ display: none;
+}
+
+.xAxis path {
+  stroke: #ccc; 
+} */
+
+.yAxis {
+  path {
+    display: none;
+  }
+}
+
+.tooltip {
   position: absolute;
-  top: 20px; /* Ajustez la position verticale selon vos besoins */
-  right: 20px; /* Ajustez la position horizontale selon vos besoins */
+  opacity: 0;
+  background-color: var(--bgtooltip);
+  color: var(--white);
+  width: 39px;
+  height: 63px;
+  text-align: center;
+  font-size: var(--fs-xxsmall);
+  line-height: 24px;
+  pointer-events: none;
 }

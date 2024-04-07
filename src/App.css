@@ -19,12 +19,14 @@
   --fs-medium: 15px;
   --fs-small: 14px;
   --fs-xsmall: 12px;
+  --fs-xxsmall:7px;
   --legend: hsla(228, 9%, 50%, 1);
   --d3Text :hsla(228, 9%, 64%, 1);
   --d3Line: hsla(0, 0%, 87%, 1);
   --bgd3graph2:hsla(0, 100%, 50%, 1);
-  --bgPerformance:hsla(203, 9%, 17%, 1);
-  --bgtooltip:hsla(0, 100%, 45%, 1);
+  --blackColor:hsla(203, 9%, 17%, 1);
+  --redColor:hsla(0, 100%, 45%, 1);
+  --bgbargroup:hsla(0,0%,77%,0.5)
 }
 
 *,

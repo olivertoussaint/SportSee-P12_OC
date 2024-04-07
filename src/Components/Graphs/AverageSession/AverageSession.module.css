@@ -15,23 +15,23 @@
   top: 1rem;
   left: 1rem;
 }
+
 .circle {
   fill: white;
-  opacity: 0; /* Initialement invisible */
-}
- /* .circle :hover {
-  opacity: 1;
- } */
-
- .text{
-  fill: var(--white); 
+  opacity: 0; /* Initialiser l'opacité à 0 */
+  transition: opacity 0.3s ease; /* Ajouter une transition pour une animation fluide */
+  filter: url(#shadow); /* Référence au filtre d'ombre */
 }
 
 .tooltip {
   position: absolute;
+  width: 39px; 
+  height: 25px; 
   background-color: white; 
   color: black; 
-  padding: 8px;
+  font-size: 8px;
+  text-align: center;
+  line-height: 24px;
   border-radius: 4px;
   pointer-events: none;
   opacity: 0;
