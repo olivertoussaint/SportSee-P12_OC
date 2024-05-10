@@ -1,7 +1,7 @@
 .container {
   position: relative;
   width: calc(100vw - 117px);
-  padding: 2% 5% 0 5%;
+  padding: 2% 5% 0 17%;
 }
 
 .mainWrap {
@@ -34,4 +34,36 @@
   width: 100%;
   align-items: flex-end;
   justify-content: space-between;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    width: 100vw; /* Utiliser la largeur complète de la vue */
+    padding: 2% 3% 0 5%; /* Ajuster les padding pour un meilleur rendu */
+  }
+
+  .mainWrap {
+    flex-direction: column; /* Changer la direction de flex pour empiler les éléments */
+    height: auto; /* Ajuster la hauteur pour qu'elle soit automatique */
+    gap: 10px; /* Réduire l'écart */
+  }
+
+  .chartContainer {
+    width: 100%; /* Utiliser la pleine largeur pour le container des graphiques */
+  }
+
+  .cardWrap {
+    position: relative;
+        top: 35px;
+        width: 100%;
+        gap: 13px;
+        flex-direction: row;
+        /* bottom: 20px; */
+        margin-bottom: 30px;
+  }
+
+  .bottomCharts {
+    width: 98%;
+    top: 20px; /* Ajuster la position bottom */
+  }
 }

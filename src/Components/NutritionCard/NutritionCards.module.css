@@ -32,3 +32,9 @@
   color: var(--grey);
   font-weight: 500;
 }
+
+@media (max-width: 1024px) {
+  .cardWrap {
+    width: 199px;
+  }
+}

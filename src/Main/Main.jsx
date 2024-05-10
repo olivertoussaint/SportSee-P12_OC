@@ -4,19 +4,24 @@ import styles from './Main.module.css'
 import NutritionCard from '../Components/NutritionCard/NutritionCard'
 import Greetings from '../Components/Greetings/Greetings'
 import Activity from '../Components/Graphs/Activity/Activity'
+import AverageSession from '../Components/Graphs/AverageSession/AverageSession'
+import Performance from '../Components/Graphs/Performance/Performance'
+import Score from '../Components/Graphs/Score/Score'
 import useFetch from '../hooks/useFetch'
-import DataSource from '../Components/DataSource/DataSource'
 
 import { ReactComponent as FireIcon } from '../../src/assets/nutrition-icons/fire-icon.svg'
 import { ReactComponent as AppleIcon } from '../../src/assets/nutrition-icons/apple-icon.svg'
 import { ReactComponent as ChickenIcon } from '../../src/assets/nutrition-icons/chicken-icon.svg'
 import { ReactComponent as CheeseburgerIcon } from '../../src/assets/nutrition-icons/cheeseburger-icon.svg'
-import AverageSession from '../Components/Graphs/AverageSession/AverageSession'
-import Performance from '../Components/Graphs/Performance/Performance'
-import Score from '../Components/Graphs/Score/Score'
+
+import DataSource from '../Components/DataSource/DataSource'
 
 function Main() {
   const { data, loading, dataSource, error } = useFetch()
+  console.log(data)
+  console.log(loading)
+  console.log(dataSource)
+  console.log(error)
   if ((loading || !data) && !error) {
     return <div>loading...</div>
   }
@@ -30,9 +35,9 @@ function Main() {
             <Activity data={data.activitySection} />
           </div>
           <div className={styles.bottomCharts}>
-            <AverageSession data={data.averageSection}/>
-            <Performance data={data.performanceSection}/>
-            <Score />
+            <AverageSession data={data.averageSection} />
+            <Performance data={data.performanceSection} />
+            <Score data={data.scoreSection} />
           </div>
         </div>
         <div className={styles.cardWrap}>

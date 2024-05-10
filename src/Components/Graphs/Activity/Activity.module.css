@@ -49,24 +49,8 @@ img {
   fill: var(--redColor) ;/* couleur des barres de calories */
 }
 
-
-/* .xAxis line {
- display: none;
-}
-
-.xAxis path {
-  stroke: #ccc; 
-} */
-
-.yAxis {
-  path {
-    display: none;
-  }
-}
-
 .tooltip {
   position: absolute;
-  opacity: 0;
   background-color: var(--bgtooltip);
   color: var(--white);
   width: 39px;

@@ -26,7 +26,8 @@
   --bgd3graph2:hsla(0, 100%, 50%, 1);
   --blackColor:hsla(203, 9%, 17%, 1);
   --redColor:hsla(0, 100%, 45%, 1);
-  --bgbargroup:hsla(0,0%,77%,0.5)
+  --bgbargroup:hsla(0,0%,77%,0.5);
+  --bgtooltip:hsla(0, 100%, 45%, 1);
 }
 
 *,

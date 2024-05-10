@@ -10,11 +10,6 @@ const users = [
   { id: 18, firstName: 'Cecilia', picture: AvatarTwo },
 ]
 
-/**
- * A React component that renders home page
- * @returns {JSX.Element} - A JSX element of combined components to display home page
- */
-
 function Home() {
   const [check, setChecked] = useState(true)
 

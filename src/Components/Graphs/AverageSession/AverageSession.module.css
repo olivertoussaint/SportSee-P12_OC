@@ -16,12 +16,11 @@
   left: 1rem;
 }
 
-.circle {
+/* .circle {
   fill: white;
-  opacity: 0; /* Initialiser l'opacité à 0 */
-  transition: opacity 0.3s ease; /* Ajouter une transition pour une animation fluide */
-  filter: url(#shadow); /* Référence au filtre d'ombre */
-}
+  opacity: 0; 
+  transition: opacity 0.3s ease; 
+} */
 
 .tooltip {
   position: absolute;

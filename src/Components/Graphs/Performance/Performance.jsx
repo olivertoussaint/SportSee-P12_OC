@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 const Performance = ({ data }) => {
   const svgRef = useRef();
+  console.log(data)
 
   useEffect(() => {
     if (!data) {
