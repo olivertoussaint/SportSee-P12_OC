@@ -79,4 +79,6 @@ This project includes four endpoints that you will be able to use:
 - `http://localhost:3000/user/${userId}/performance` - retrieves a user's performance (energy, endurance, etc.).
 
 
+
 **Warning, currently only two users have been mocked. They have userId 12 and 18 respectively.**
+
