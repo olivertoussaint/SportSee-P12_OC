@@ -36,16 +36,12 @@ export default function useFetch() {
       } else {
         navigate('/Error');
       }
-
       setLoading(false); // Update loading state here
     } else {
       getUserInfo(id)
         .then((userInfos) => {
-          console.log('Data received from API:', userInfos); // Add this log
           const formatApi = formatApiResponse(userInfos);
-          console.log('Formatted API data:', formatApi); // Add this log
           const formattedData = globalFormat(formatApi);
-          console.log('Formatted data:', formattedData); // Add this log
           setData(formattedData);
           setLoading(false); // Update loading state here
         })

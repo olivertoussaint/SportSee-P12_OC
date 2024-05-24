@@ -3,13 +3,23 @@ import * as d3 from 'd3';
 import styles from './Performance.module.css';
 import PropTypes from 'prop-types';
 
+/**
+ * Component to render a radar chart for performance data.
+ * Uses D3.js to create a responsive radar chart visualizing various performance metrics.
+ * The chart dimensions and scales are dynamically adjusted based on the provided data.
+ *
+ * @component
+ * @param {Object[]} data - Array of objects representing performance metrics.
+ * @param {string} data[].subject - The subject or category of the metric.
+ * @param {number} data[].value - The value of the performance metric.
+ */
+
 const Performance = ({ data }) => {
   const svgRef = useRef();
-  console.log(data)
 
   useEffect(() => {
     if (!data) {
-      return;
+      return; // Exit if no data is provided
     }
 
     const width = 258;
@@ -21,23 +31,22 @@ const Performance = ({ data }) => {
 
     const svg = d3.select(svgRef.current);
 
-    // Supprimer le contenu précédent du SVG
-    svg.selectAll('*').remove();
+    svg.selectAll('*').remove(); // Clear previous renderings
 
     const g = svg.append('g')
       .attr('transform', `translate(${width / 2},${height / 2})`);
 
-    const angleSlice = Math.PI * 2 / data.length;
+    const angleSlice = Math.PI * 2 / data.length; // Calculate the angle for each slice
 
     const rScale = d3.scaleLinear()
-      .domain([30, 200]) // Plage des valeurs de données
+      .domain([30, 200]) // Data value range
       .range([0, radius]);
 
     const radarLine = d3.lineRadial()
-      .radius(d => Math.min(rScale(d.value), radius -10)) // Limite la longueur de la ligne du radar
+      .radius(d => Math.min(rScale(d.value), radius -10)) // Limit the radar line length
       .angle((d, i) => i * angleSlice);
 
-    // Ajouter les rayons du radar
+    // Add the radar grid lines
     g.selectAll('.levels')
       .data([20, 60, 100, 150, 200])
       .enter()
@@ -53,10 +62,10 @@ const Performance = ({ data }) => {
         }
         return points.join(' ');
       })
-      .style('fill', 'none') // Pas de remplissage
-      .style('stroke', 'white'); // Bordure blanche
+      .style('fill', 'none') 
+      .style('stroke', 'white'); 
 
-    // Ajouter les étiquettes des axes
+    // Add axis labels
     g.selectAll('.axisLabel')
       .data(data)
       .enter()
@@ -64,8 +73,8 @@ const Performance = ({ data }) => {
       .attr('class', 'axisLabel')
       .attr('x', (d, i) => {
         const angle = i * angleSlice;
-        const labelWidth = d.subject.length * 4; // Estimation de la largeur en fonction de la longueur du texte
-        return Math.cos(angle - Math.PI / 2) * (radius + 25) - labelWidth / 1.8; // Centre le texte
+        const labelWidth = d.subject.length * 4; // Estimate label width based on text length
+        return Math.cos(angle - Math.PI / 2) * (radius + 25) - labelWidth / 1.8; // Center the text
       })
       .attr('y', (d, i) => {
         const angle = i * angleSlice;
@@ -76,12 +85,24 @@ const Performance = ({ data }) => {
       .style('fill', 'white')
       .text(d => d.subject);
 
-    // Dessiner le radar
-    g.append('path')
+    // Draw the radar area
+    const radarArea = g.append('path')
       .datum(data)
-      .attr('class', 'radarArea')
       .attr('d', radarLine)
-      .style('fill', 'var(--radar)')
+      .style('fill', 'var(--radar)'); // Custom CSS variable for radar color
+
+      // Animate the radar chart
+    radarArea.transition()
+    .duration(1000)
+    .attrTween('d', function (d) {
+      const interpolate = d3.interpolate({ length: 0 }, { length: 1 });
+      return function (t) {
+        return radarLine(d.map(item => ({
+          ...item,
+          value: item.value * interpolate(t).length
+        })));
+      }
+    })
 
   }, [data]);
 

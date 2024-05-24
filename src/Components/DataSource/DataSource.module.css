@@ -1,56 +1,46 @@
 .container {
-      position: absolute;
-      right:4.875rem;
-      top: 6rem;
-      background-color: var(--bg);
-      padding: 15px 25px;
-    }
-    
-    .container:hover {
-      background: linear-gradient(45deg, var(--primary) 0%, var(--secondary) 100%);
-      animation: morph 3s ease-in-out;
-      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-      height: auto;
-      width: auto;
-      transition: all 1s ease-in-out;
-      z-index: 5;
-    }
+  position: absolute;
+  right: 1.875rem;
+  top: 3rem;
+  padding: 15px 25px;
+}
 
-    @keyframes morph {
-      0% {
-                      border-radius:  60% 40% 30% 70% / 60% 30% 70% 40%;
-                      background: linear-gradient(45deg, var(--primary) 0%, var(--secondary) 100%);
-          } 
-          
-          50% {
-                      border-radius:  30% 60% 70% 40% / 50% 60% 30% 60%;
-                      background: linear-gradient(45deg, var(--third) 0%, var(--secondary) 100%);
-          }
-      
-          100% {
-                border-radius:  60% 40% 30% 70% / 60% 30% 70% 40%;
-                background: linear-gradient(45deg, var(--primary) 0%, var(--secondary) 100%);
-          } 
-    }
-    
-    
-    .container:hover .dataSign,
-    .container:hover .dataSource {
-      color: var(--white);
-    }
-    
-    .dataSign,
-    .dataSource {
-      font-size: 12px;
-      margin-top: 20px;
-    }
-    
-    .dataSign {
-      font-weight: 400;
-      color: var(--red);
-    }
-    
-    .dataSource {
-      font-weight: 600;
-      color: var(--black);
-    }
+.dataSign {
+  font-size: 24px;
+  background: linear-gradient(#000000, #e21616);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-family: 'Dancing Script', cursive;
+}
+
+.dataSign {
+  font-weight: 400;
+  color: var(--red);
+}
+
+.dataSource {
+  position: relative;
+  top: 3px;
+  font-size: 24px;
+  font-weight: 600;
+  color: white;
+  text-shadow: 1px 1px 2px rgb(63, 83, 98), 0 0 25px rgba(0, 255, 13, 0.564),
+    0 0 5px rgb(102, 108, 237);
+}
+
+@media (max-width: 1024px) {
+  .dataSource {
+    font-size: 16px;
+    top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    position: absolute;
+    right: -5.125rem;
+    top: 5rem;
+  }
+}

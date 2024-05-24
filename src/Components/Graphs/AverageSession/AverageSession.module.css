@@ -16,12 +16,6 @@
   left: 1rem;
 }
 
-/* .circle {
-  fill: white;
-  opacity: 0; 
-  transition: opacity 0.3s ease; 
-} */
-
 .tooltip {
   position: absolute;
   width: 39px; 
@@ -34,4 +28,5 @@
   border-radius: 4px;
   pointer-events: none;
   opacity: 0;
+  transition: opacity 0.3s;
 }

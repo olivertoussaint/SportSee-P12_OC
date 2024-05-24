@@ -1,70 +1,82 @@
 # OpenClassRooms - SportSee - Project-12
+<div align="center">
+<img src="public/Capture d’écran 2024-05-17 014125.png" alt="homePage sreen">
+</div>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+ <div align="center">
+  <img src="public/Cecilia_resized_image_200px.png" alt="Cecilia Dashboard">
+  <img src="public/Karl_resized_image_200px.png" alt="Karl Dashboard">
+</div>
 
-## Available Scripts
+## Technologies and Languages Used
 
-In the project directory, you can run:
+This project utilizes a range of technologies and programming languages to achieve its functionality:
 
-### `npm start`
+- **JavaScript**: Used for client-side scripting and interaction logic.
+- **React**: A JavaScript library for building user interfaces, used for handling the view layer.
+- **CSS Module**: Used for styling the web pages.
+- **Node.js**: Server-side JavaScript runtime environment used to run the web server and handle backend logic.
+- **D3.js**: A JavaScript library for producing dynamic, interactive data visualizations in web browsers. Used extensively for rendering complex data graphs and charts.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+These technologies were chosen for their performance, ease of use, and community support.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+![Static Badge](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)![Static Badge](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)![Static Badge](https://img.shields.io/badge/Style-CSS_Module-F7DF1E%3F?style=for-the-badge&color=orange) <img src="https://img.shields.io/badge/-Node.js-339933?style=flat&logo=nodedotjs&logoColor=white"/>![Static Badge](https://img.shields.io/badge/-D3.js-F9A03C?style=flat&logo=d3dotjs&logoColor=white)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **JSDoc** is used for this project
 
-### `npm run build`
+## 1. General information
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To start this project, you are free to use Docker or not. In this documentation, we will see several methods to launch the project easily.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 2. Project (**without Docker**)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 2.1 Prerequisites
 
-### `npm run eject`
+- [NodeJS (**version 12.18**)](https://nodejs.org/en/)
+- [Yarn](https://yarnpkg.com/)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+If you are working with several versions of NodeJS, we recommend you install [nvm](https://github.com/nvm-sh/nvm). This tool will allow you to easily manage your NodeJS versions.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 2.2 Launching the project
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Fork the repository
+- Clone it on your computer.
+- The `yarn` command will allow you to install the dependencies.
+- The `yarn dev` command will allow you to run the micro API.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## 3. Project (**with Docker**)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### 2.1 Prerequisites
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
-### Code Splitting
+### 2.2 Starting the project
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- The `docker image build --no-cache -t micro-api .` command will allow you to build your image.
+- The `docker container run --name micro-api -p 3000:3000 -dt micro-api yarn` command will allow you to create your Docker container and run your image on port 3000.
+- The `docker container stop micro-api` command will allow you to stop your micro-api.
+- The `docker container rm micro-api` command will allow you to delete your micro-api container.
 
-### Analyzing the Bundle Size
+### 2.3 Vscode and container remotes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Finally, if you have VsCode, you can easily launch your project in a docker environment.
 
-### Making a Progressive Web App
+You will need the [Remote Development extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack). Once you have this extension installed, just click on the `Reopen in Container` button.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Once in the container, run the `yarn dev` command.
 
-### Advanced Configuration
+## 4. Endpoints
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 4.1 Possible endpoints
 
-### Deployment
+This project includes four endpoints that you will be able to use: 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- `http://localhost:3000/user/${userId}` - retrieves information from a user. This first endpoint includes the user id, user information (first name, last name and age), the current day's score (todayScore) and key data (calorie, macronutrient, etc.).
+- `http://localhost:3000/user/${userId}/activity` - retrieves a user's activity day by day with kilograms and calories.
+- `http://localhost:3000/user/${userId}/average-sessions` - retrieves the average sessions of a user per day. The week starts on Monday.
+- `http://localhost:3000/user/${userId}/performance` - retrieves a user's performance (energy, endurance, etc.).
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Warning, currently only two users have been mocked. They have userId 12 and 18 respectively.**

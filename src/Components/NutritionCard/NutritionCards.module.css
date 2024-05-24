@@ -38,3 +38,12 @@
     width: 199px;
   }
 }
+
+@media (max-width: 769px) {
+  .cardWrap {
+    padding: 0 31.5px;
+  }
+  .iconWrap {
+    margin-left: 0;
+  }
+}

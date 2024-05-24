@@ -6,6 +6,23 @@ import BlackDot from '../../../assets/images/blackdot.png'
 import RedDot from '../../../assets/images/reddot.png'
 import { useLocation } from 'react-router-dom'
 
+/**
+ * Renders a dual-axis bar chart representing daily activity data with metrics for weight and calories.
+ * Utilizes D3.js for dynamic SVG rendering based on the provided data.
+ * The component adapts its display based on the routing path, making adjustments to the data visualization if necessary.
+ *
+ * @component
+ * @param {Object[]} data - Array of objects containing the daily activity data.
+ * @param {number} data[].kilogram - The weight value for a particular day.
+ * @param {number} data[].calories - The calorie expenditure for a particular day.
+ * @example
+ * const activityData = [
+ *   { kilogram: 70, calories: 500 },
+ *   { kilogram: 72, calories: 600 }
+ * ];
+ * return <Activity data={activityData} />;
+ */
+
 const Activity = ({ data }) => {
   const containerRef = useRef(null)
   const tooltipRef = useRef(null)
@@ -14,13 +31,12 @@ const Activity = ({ data }) => {
   const [tooltipVisibility, setTooltipVisibility] = useState('hidden')
 
   useEffect(() => {
-
-    
+    // Early exit if no data or container is not initialized
     if (!data || !containerRef.current) {
       return
     }
-    console.log(location)
 
+    // Setup dimensions and margins for the chart container
     const containerWidth = 702
     const containerHeight = 200
     const margin = { top: 20, right: 10, bottom: 30, left: 60 }
@@ -28,6 +44,7 @@ const Activity = ({ data }) => {
     const height = containerHeight - margin.top - margin.bottom
     const spaceBetweenBars = 15
 
+    // Create SVG element with specified dimensions
     const svg = d3
       .select(containerRef.current)
       .attr('width', containerWidth)
@@ -37,6 +54,7 @@ const Activity = ({ data }) => {
       .append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`)
 
+    // Setup the x-axis scale and axis rendering
     const xScale = d3
       .scaleBand()
       .domain(data.map((_, i) => (i + 1).toString()))
@@ -44,21 +62,20 @@ const Activity = ({ data }) => {
       .paddingInner(0.9)
       .paddingOuter(0.5)
 
+    // Render x-axis and customize its appearance
     const xAxisGroup = chart
       .append('g')
       .attr('transform', `translate(0, ${height})`)
       .call(d3.axisBottom(xScale))
       .attr('class', styles.xAxis)
-
-    // Adding a line to cover the stroke-dasharray
     chart
       .append('line')
       .attr('x1', 0)
       .attr('x2', width)
       .attr('y1', height)
       .attr('y2', height)
-      .attr('stroke', '#ccc') // Match the color of the axis
-      .attr('stroke-width', '1') // Ensure it covers the dashed line
+      .attr('stroke', '#ccc')
+      .attr('stroke-width', '1')
 
     xAxisGroup.selectAll('.tick line, .domain').remove()
 
@@ -67,8 +84,9 @@ const Activity = ({ data }) => {
       .style('fill', '#ccc')
       .style('text-anchor', 'start')
       .attr('dy', '0.95em')
-      .attr('x', '-3px') // décale le texte horizontalement
+      .attr('x', '-3px') // Horizontally offset text
 
+    // Setup y-axis for calories with dynamic scaling based on data
     let yMinCalories = d3.min(data, (d) => d.calories - 100)
     let yMaxCalories = d3.max(data, (d) => d.calories + 100)
     let yMedianCalories = d3.median(data, (d) => d.calories + 80)
@@ -83,16 +101,16 @@ const Activity = ({ data }) => {
       .tickValues([yMinCalories, yMedianCalories, yMaxCalories])
       .tickFormat(d3.format('.2s'))
 
-    // Ajout de l'axe Y et mise à jour immédiate pour le rendre invisible
-chart
-.append('g')
-.call(yAxisCalories)
-.attr('class', styles.yAxisLeft)
-.call(g => {
-  g.selectAll('.tick line').remove(); // Supprime les lignes des ticks si nécessaire
-  g.selectAll('.tick text').style('fill', '#ccc'); // Change la couleur des textes des ticks si vous souhaitez les garder visibles
-})
-.style('display', 'none'); // Rend tout le groupe de l'axe Y invisible
+    // Add the Y-axis and update immediately to make it invisible
+    chart
+      .append('g')
+      .call(yAxisCalories)
+      .attr('class', styles.yAxisLeft)
+      .call((g) => {
+        g.selectAll('.tick line').remove() // Remove tick lines if necessary
+        g.selectAll('.tick text').style('fill', '#ccc') // Change the color of the tick texts if you wish to keep them visible
+      })
+      .style('display', 'none') // Make the entire Y-axis group invisible
 
     const barWidth = xScale.bandwidth() * 0.7
 
@@ -100,20 +118,16 @@ chart
     let yMaxKg = d3.max(data, (d) => d.kilogram)
     let yMedianKg = d3.median(data, (d) => d.kilogram)
 
-      // Ajustements conditionnels basés sur l'URL
-      if (location.pathname.includes('/user/18')) {
-        yMinKg -= 1
-        yMaxKg +=2
-        yMedianKg +=1
-
-    
-      } else if (location.pathname.includes('/user/12')) {
-        // Faites d'autres ajustements si nécessaire pour l'utilisateur 12
-        yMinKg -=2
-        yMaxKg +=1
-        yMedianKg -=2
-      }
-  
+    // Conditional adjustments based on the URL
+    if (location.pathname.includes('/user/18')) {
+      yMinKg -= 1
+      yMaxKg += 2
+      yMedianKg += 1
+    } else if (location.pathname.includes('/user/12')) {
+      yMinKg -= 2
+      yMaxKg += 1
+      yMedianKg -= 2
+    }
 
     const yScaleKg = d3
       .scaleLinear()
@@ -125,7 +139,6 @@ chart
       .tickValues([yMinKg, yMedianKg, yMaxKg])
       .tickFormat(d3.format('.2s'))
 
-    
     chart
       .append('g')
       .call(yAxisKg)
@@ -187,31 +200,42 @@ chart
         )
 
         setTooltipVisibility('visible')
-        
+
+        tooltipRef.current.style = ('display', 'block')
         tooltipRef.current.style.left = `${event.pageX - 90}px`
-        tooltipRef.current.style.top = `${event.pageY - 208}px`
+        tooltipRef.current.style.top = `${event.pageY - 150}px`
 
         d3.select(this).style('opacity', 0.5).style('fill', 'var(--bgbargroup)')
       })
       .on('mouseout', function () {
         setTooltipVisibility('hidden')
-        d3.select(this)
-        .style('opacity', 0)
-        .style('fill', 'transparent')
+        d3.select(this).style('opacity', 0).style('fill', 'transparent')
       })
+
+    // Barres pour le poids
     hoverContainer
       .append('path')
       .attr('class', styles.barKg)
       .attr('d', (d) => {
         const x = xScale((data.indexOf(d) + 1).toString()) - barWidth / 2
+        return `M${x},${height} a3,3 0 0 1 3-3 h${
+          barWidth - 6
+        } a3,3 0 0 1 3,3 v0 h-${barWidth}z` // Start flat
+      })
+      .attr('fill', '#74c476')
+      .transition() // Start transition
+      .duration(800) // Duration of animation
+      .attr('d', (d) => {
+        // Animate to final state
+        const x = xScale((data.indexOf(d) + 1).toString()) - barWidth / 2
         const y = yScaleKg(d.kilogram)
-        const barHeight = Math.max(0, height - yScaleKg(d.kilogram)) // Calcul de la hauteur de la barre correctement
+        const barHeight = Math.max(0, height - y) // Calculate bar height
         return `M${x},${y} a3,3 0 0 1 3-3 h${
           barWidth - 6
         } a3,3 0 0 1 3,3 v${barHeight} h-${barWidth}z`
       })
-      .attr('fill', '#74c476')
 
+    // Barres pour les calories
     hoverContainer
       .append('path')
       .attr('class', styles.barCalories)
@@ -220,13 +244,25 @@ chart
           xScale((data.indexOf(d) + 1).toString()) +
           barWidth / 2 +
           spaceBetweenBars / 2
+        return `M${x},${height} a3,3 0 0 1 3-3 h${
+          barWidth - 6
+        } a3,3 0 0 1 3,3 v0 h-${barWidth}z` // Start flat
+      })
+      .attr('fill', 'hsla(0, 0%, 77%, 0.5)')
+      .transition()
+      .duration(800)
+      .attr('d', (d) => {
+        // Animattion de l'état final
+        const x =
+          xScale((data.indexOf(d) + 1).toString()) +
+          barWidth / 2 +
+          spaceBetweenBars / 2
         const y = yScaleCalories(d.calories)
-        const barHeight = height - yScaleCalories(d.calories) // Calcul de la hauteur de la barre correctement
+        const barHeight = height - y // Calcul de la hauteur de la barre graphique
         return `M${x},${y} a3,3 0 0 1 3-3 h${
           barWidth - 6
         } a3,3 0 0 1 3,3 v${barHeight} h-${barWidth}z`
       })
-      .attr('fill', 'hsla(0, 0%, 77%, 0.5)')
   }, [data, location])
 
   return (

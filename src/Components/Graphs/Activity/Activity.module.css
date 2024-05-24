@@ -42,11 +42,11 @@ img {
 }
 
 .barKg {
-  fill: var(--blackColor); /* couleur des barres de poids */
+  fill: var(--blackColor);
 }
 
 .barCalories {
-  fill: var(--redColor) ;/* couleur des barres de calories */
+  fill: var(--redColor);
 }
 
 .tooltip {
@@ -59,4 +59,10 @@ img {
   font-size: var(--fs-xxsmall);
   line-height: 24px;
   pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: calc(882px - 87px);
+  }
 }

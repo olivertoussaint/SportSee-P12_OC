@@ -44,3 +44,9 @@ a.backToHome {
   margin-top: 5rem;
   box-shadow: 4px 4px 4px var(--grey);
 }
+
+@media (max-width: 1024px) {
+  .error {
+    margin: 3em 0 0 0;
+  }
+}

@@ -1,139 +1,207 @@
-import React, { useEffect, useRef } from 'react';
-import * as d3 from 'd3';
-import styles from './AverageSession.module.css';
-import PropTypes from 'prop-types';
+import React, { useEffect, useRef } from 'react'
+import * as d3 from 'd3'
+import styles from './AverageSession.module.css'
+import PropTypes from 'prop-types'
+import { useLocation } from 'react-router-dom'
+
+/**
+ * Component to render an average session length line chart.
+ * Uses D3.js to create a responsive and interactive line chart visualizing session durations over days.
+ * Adapts its scales and output based on the provided data and routing path.
+ *
+ * @component
+ * @param {Object[]} data - Array of objects representing session data per day.
+ * @param {string} data[].day - Day of the week.
+ * @param {number} data[].sessionLength - Duration of the session in minutes.
+ */
 
 const AverageSession = ({ data }) => {
-  const chartRef = useRef(null);
+  const chartRef = useRef(null)
+  const location = useLocation()
 
   useEffect(() => {
+    // Exit if data is empty or undefined
     if (!data || data.length === 0) {
-      return;
+      return
     }
 
-    const margin = { top: 20, right: 5, bottom: 30, left: 5 };
-    const fullWidth = 258; // Largeur totale du SVG incluant les marges
-    const fullHeight = 263; // Hauteur totale du SVG incluant les marges
-    const width = fullWidth - margin.left - margin.right; // Largeur utilisable pour le graphique
-    const height = fullHeight - margin.top - margin.bottom; // Hauteur utilisable pour le graphique
+    // Setup the chart dimensions and margins
+    const margin = { top: 20, right: 5, bottom: 30, left: 5 }
+    const fullWidth = 258
+    const fullHeight = 263
+    const width = fullWidth - margin.left - margin.right
+    const height = fullHeight - margin.top - margin.bottom
 
-    const x = d3.scalePoint().range([0, width])
-      .padding(0.1);
-    const y = d3.scaleLinear().range([height, 0]);
+    const x = d3.scalePoint().range([0, width]).padding(0.1)
+    const y = d3.scaleLinear().range([height, 0])
 
-    const line = d3.line()
+    // Define the line generator
+    const line = d3
+      .line()
       .x((d) => x(d.day))
       .y((d) => y(d.sessionLength))
-      .curve(d3.curveCardinal);
+      .curve(d3.curveCardinal)
 
-    const svg = d3.select(chartRef.current);
-    svg.selectAll('*').remove();
+    // Create the SVG element
+    const svg = d3.select(chartRef.current)
+    svg.selectAll('*').remove()
 
-    const chart = svg.append('g')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+    const chart = svg
+      .append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`)
 
-    x.domain(data.map((d) => d.day));
+    chart
+      .append('rect')
+      .attr('width', width)
+      .attr('height', height)
+      .attr('fill', 'transparent')
 
-    // Vérifie l'URL actuelle pour déterminer le domaine de l'échelle y
-    if (window.location.pathname.includes('/user/18')) {
-      y.domain([25, d3.max(data, (d) => d.sessionLength + 10)]);
-    } else if (window.location.pathname.includes('/user/12')) {
-      y.domain([-10, d3.max(data, (d) => d.sessionLength + 5)]);
+    // Tooltip setup
+    const tooltip = d3.select('#tooltip')
+
+    // Mouse interaction handlers
+    svg.on('mouseover', function () {
+      svg.selectAll('.overlay').remove()
+      chart
+        .selectAll('circle')
+        .style('opacity', 0)
+        .transition()
+        .duration(200)
+        .style('opacity', 1)
+    })
+
+    svg.on('mouseout', function () {
+      svg.selectAll('.overlay').remove()
+      chart.selectAll('circle').transition().duration(200).style('opacity', 0)
+      tooltip.style('opacity', 0)
+    })
+
+     // Updating tooltip and circle positions based on mouse movement
+    svg.on('mousemove', function (event) {
+      const xPos = d3.pointer(event)[0]
+      const closest = data.reduce((prev, curr) => {
+        return Math.abs(x(curr.day) - xPos) < Math.abs(x(prev.day) - xPos)
+          ? curr
+          : prev
+      })
+
+      chart
+        .selectAll('circle')
+        .data([closest])
+        .join('circle')
+        .attr('class', styles.circle)
+        .transition()
+        .duration(200)
+        .ease(d3.easeCubic)
+        .attr('cx', x(closest.day))
+        .attr('cy', y(closest.sessionLength))
+        .attr('r', 4)
+        .attr('fill', 'hsla(0, 0%, 100%, 1)')
+        .attr('stroke', 'hsla(0, 0%, 100%, 0.2)')
+        .attr('stroke-width', '10')
+        .style('opacity', 1)
+
+      // Update tooltip position and content
+      const tooltipX = x(closest.day)
+      const tooltipY = y(closest.sessionLength)
+
+      tooltip
+        .style('opacity', 1)
+        .style('left', `${tooltipX + 10}px`)
+        .style('top', `${tooltipY - 20}px`)
+        .html(`${closest.sessionLength}min`)
+
+      svg.selectAll('.overlay').remove()
+      svg
+        .append('rect')
+        .attr('class', 'overlay')
+        .attr('x', margin.left + tooltipX)
+        .attr('y', 0)
+        .attr('width', fullWidth - margin.left - tooltipX)
+        .attr('height', fullHeight)
+        .attr('fill', 'rgba(0, 0, 0, 0.2)')
+    })
+
+    // Set scale domains based on data
+    x.domain(data.map((d) => d.day))
+
+    if (location.pathname.includes('/user/18')) {
+      y.domain([25, d3.max(data, (d) => d.sessionLength + 10)]) // Adjust y-axis for specific user
+    } else if (location.pathname.includes('/user/12')) {
+      y.domain([-10, d3.max(data, (d) => d.sessionLength + 5)]) // Adjust y-axis differently for another user
     }
 
-    
-    const defs = svg.append("defs");
-    const gradient = defs.append("linearGradient")
-    .attr("id", "line-gradient")
-    .attr("gradientUnits", "userSpaceOnUse")
-    .attr("x1", 0).attr("y1", 0)
-    .attr("x2", width).attr("y2", 0); // Gradient du gauche à droite
+    // Gradient definition for line coloration
+    const defs = svg.append('defs')
+    const gradient = defs
+      .append('linearGradient')
+      .attr('id', 'line-gradient')
+      .attr('gradientUnits', 'userSpaceOnUse')
+      .attr('x1', 0)
+      .attr('y1', y(0))
+      .attr('x2', 0)
+      .attr('y2', y(d3.max(data, (d) => d.sessionLength)))
 
+    gradient
+      .append('stop')
+      .attr('offset', '0%')
+      .attr('stop-color', 'hsla(0, 0%, 100%, 0.4)')
+      .attr('stop-opacity', 1)
 
-    gradient.append("stop")
-      .attr("offset", "0%")
-      .attr("stop-color", "hsla(0, 0%, 100%, 0.4)")  // Utilisez n'importe quelle couleur de début
-      .attr("stop-opacity", 1);
+    gradient
+      .append('stop')
+      .attr('offset', '100%')
+      .attr('stop-color', 'hsla(0, 0%, 100%, 0.9)')
+      .attr('stop-opacity', 1)
 
-    gradient.append("stop")
-      .attr("offset", "100%")
-      .attr("stop-color", "hsla(0, 0%, 100%, 0.9)")  // Changez pour n'importe quelle couleur de fin
-      .attr("stop-opacity", 1);
-
-
-    chart.append('g')
+    // Append x-axis
+    chart
+      .append('g')
       .attr('transform', `translate(0, ${height})`)
-      .call(d3.axisBottom(x)
-        .tickSize(0)
-        .tickFormat((d) => {
-          if (d === 'Ma' || d === 'Me') return 'M'; // Remplace "Ma" et "Me" par "M"
-          return d;
-        })
+      .call(
+        d3
+          .axisBottom(x)
+          .tickSize(0)
+          .tickFormat((d) => {
+            if (d === 'Ma' || d === 'Me') return 'M'
+            return d
+          })
       )
       .selectAll('.tick text')
-      .style('fill', 'white'); // Applique la couleur blanche aux étiquettes
+      .style('fill', 'white')
 
-    chart.select('.domain')
-      .style('stroke', 'none');
+    chart.select('.domain').style('stroke', 'none')
 
-      chart.append('path')
+    // Path drawing and animation
+    const path = chart
+      .append('path')
       .datum(data)
       .attr('fill', 'none')
       .attr('stroke', 'url(#line-gradient)')
       .attr('stroke-width', 2)
-      .attr('d', line);
+      .attr('d', line)
 
-    // Ajout des cercles représentant les points de données
-    chart.selectAll("circle")
-      .data(data)
-      .enter().append("circle")
-      .attr("class", styles.circle) // Ajouter la classe pour les styles et l'ombre
-      .attr("cx", (d) => x(d.day))
-      .attr("cy", (d) => y(d.sessionLength))
-      .attr("r", 4) // Rayon des cercles
-      .attr('fill', 'hsla(0, 0%, 100%, 1)')
-      .attr('stroke', 'hsla(0, 0%, 100%, 0.2)')
-      .attr( 'stroke-width', '10')
-      .style("opacity", 0) // Initialement invisible
-      .on("mouseover", function(event, d) {
-        const [xPosTip, yPos] = d3.pointer(event, svg.node());
-        d3.select("#tooltip")
-          .style("opacity", 1)
-          .html(`${d.sessionLength}min`)
-          .style("left", `${xPosTip + 10}px`)
-          .style("top", `${yPos - 20}px`);
-        const xPos = x(d.day);
-        svg.append("rect")
-        .attr("class", "overlay")
-        .attr("x", margin.left + xPos) // Adjust for margin
-        .attr("y", 0) // Start at the top of the SVG
-        .attr("width", fullWidth - margin.left - xPos) // Fill to the right
-        .attr("height", fullHeight) // Full height of the SVG
-        .attr("fill", "rgba(0, 0, 0, 0.2)")
-        d3.select(this).style("opacity", 1); // Show the circle on mouseover
-        
-      })
-      .on("mouseout", function() {
-        svg.selectAll(".overlay").remove();
-        d3.select("#tooltip").style("opacity", 0)
-        d3.select(this).style("opacity", 0); // Hide the circle on mouseout
-      });
-
-  }, [data]);
+    const totalLength = path.node().getTotalLength()
+    path
+      .attr('stroke-dasharray', totalLength + ' ' + totalLength)
+      .attr('stroke-dashoffset', totalLength)
+      .transition()
+      .duration(900)
+      .ease(d3.easeLinear)
+      .attr('stroke-dashoffset', 0)
+  }, [data, location])
 
   return (
     <div className={styles.container}>
       <h3>Durée moyenne des sessions</h3>
-      {/* Tooltip */}
       <div id="tooltip" className={styles.tooltip}></div>
-      {/* Graphique */}
-      <svg ref={chartRef} width="258" height="263"></svg> {/* Nouvelle largeur du SVG */}
+      <svg ref={chartRef} width="258" height="263"></svg>
     </div>
-  );
+  )
 }
 
 AverageSession.propTypes = {
   data: PropTypes.array.isRequired,
-};
+}
 
-export default AverageSession;
+export default AverageSession

@@ -18,10 +18,6 @@ import DataSource from '../Components/DataSource/DataSource'
 
 function Main() {
   const { data, loading, dataSource, error } = useFetch()
-  console.log(data)
-  console.log(loading)
-  console.log(dataSource)
-  console.log(error)
   if ((loading || !data) && !error) {
     return <div>loading...</div>
   }

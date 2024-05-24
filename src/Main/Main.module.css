@@ -38,18 +38,18 @@
 
 @media (max-width: 1024px) {
   .container {
-    width: 100vw; /* Utiliser la largeur complète de la vue */
-    padding: 2% 3% 0 5%; /* Ajuster les padding pour un meilleur rendu */
+    width: 100vw; 
+    padding: 2% 3% 0 5%; 
   }
 
   .mainWrap {
-    flex-direction: column; /* Changer la direction de flex pour empiler les éléments */
-    height: auto; /* Ajuster la hauteur pour qu'elle soit automatique */
-    gap: 10px; /* Réduire l'écart */
+    flex-direction: column; 
+    height: auto; 
+    gap: 10px; 
   }
 
   .chartContainer {
-    width: 100%; /* Utiliser la pleine largeur pour le container des graphiques */
+    width: 100%; 
   }
 
   .cardWrap {
@@ -58,12 +58,20 @@
         width: 100%;
         gap: 13px;
         flex-direction: row;
-        /* bottom: 20px; */
         margin-bottom: 30px;
   }
 
   .bottomCharts {
     width: 98%;
-    top: 20px; /* Ajuster la position bottom */
+    top: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .bottomCharts {
+    gap: 11px;
+  }
+  .cardWrap {
+    gap: 25px;
   }
 }
