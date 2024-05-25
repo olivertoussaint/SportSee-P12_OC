@@ -4,8 +4,8 @@
 </div><br>
 
  <div align="center" style="display: flex; justify-content: center;" >
-  <img src="public/Karl_resized_image_200px.png" alt="Karl Dashboard" style="margin-right: 50px;">
-  <img src="public/Cecilia_resized_image_200px.png" alt="Cecilia Dashboard" style="margin-left: 50px;">
+  <img src="public/Karl_resized_image_200px.png" alt="Karl Dashboard" style="margin: 0 25px;">
+  <img src="public/Cecilia_resized_image_200px.png" alt="Cecilia Dashboard" style="margin: 0 25px;">
 </div>
 
 - **Description**: The images above show the dashboards for Karl and Cecilia.
