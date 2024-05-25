@@ -1,11 +1,11 @@
 # OpenClassRooms - SportSee - Project-12
 <div align="center">
-<img src="public/Capture d’écran 2024-05-17 014125.png" alt="homePage sreen">
+<img src="public/Capture d’écran 2024-05-17 014125.png" alt="homePage sreen" style="border-radius: 10px;box-shadow: 2px 2px 5px rgba(0,0,0,0.3);">
 </div>
 
- <div align="center">
-  <img src="public/Cecilia_resized_image_200px.png" alt="Cecilia Dashboard">
-  <img src="public/Karl_resized_image_200px.png" alt="Karl Dashboard">
+ <div align="center" style="margin-top: 20px;" >
+  <img src="public/Karl_resized_image_200px.png" alt="Karl Dashboard" style="margin-right: 10px; border-radius: 5px;">
+  <img src="public/Cecilia_resized_image_200px.png" alt="Cecilia Dashboard" style="margin-left: 10px; border-radius: 5px;">
 </div>
 
 ## Technologies and Languages Used
@@ -21,9 +21,17 @@ This project utilizes a range of technologies and programming languages to achie
 These technologies were chosen for their performance, ease of use, and community support.
 
 
-![Static Badge](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)![Static Badge](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)![Static Badge](https://img.shields.io/badge/Style-CSS_Module-F7DF1E%3F?style=for-the-badge&color=orange) <img src="https://img.shields.io/badge/-Node.js-339933?style=flat&logo=nodedotjs&logoColor=white"/>![Static Badge](https://img.shields.io/badge/-D3.js-F9A03C?style=flat&logo=d3dotjs&logoColor=white)
+<div style="display: flex; gap: 10px;">
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" style="border-radius: 5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.3);">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" style="border-radius: 5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.3);">
+  <img src="https://img.shields.io/badge/Style-CSS_Module-F7DF1E%3F?style=for-the-badge&color=orange" style="border-radius: 5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.3);">
+  <img src="https://img.shields.io/badge/-Node.js-339933?style=flat&logo=nodedotjs&logoColor=white" style="border-radius: 5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.3);">
+  <img src="https://img.shields.io/badge/-D3.js-F9A03C?style=flat&logo=d3dotjs&logoColor=white" style="border-radius: 5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.3);"> 
+</div><br><hr><br>
 
+<img src="https://img.shields.io/badge/JSDoc-007ACC?style=for-the-badge&logo=jsdoc&logoColor=007ACC&labelColor=white" style="border-radius: 5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.3);"><br>
 - **JSDoc** is used for this project
+<hr>
 
 ## 1. General information
 
