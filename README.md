@@ -3,7 +3,7 @@
 <img src="public/Capture d’écran 2024-05-17 014125.png" alt="homePage screen">
 </div><br>
 
- <div style="display: flex; gap: 25px; justify-content: center;" >
+ <div align="center" style="display: flex; gap: 50px; justify-content: center;" >
   <img src="public/Karl_resized_image_200px.png" alt="Karl Dashboard">
   <img src="public/Cecilia_resized_image_200px.png" alt="Cecilia Dashboard">
 </div>
