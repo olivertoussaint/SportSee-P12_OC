@@ -8,6 +8,8 @@
   <img src="public/Cecilia_resized_image_200px.png" alt="Cecilia Dashboard">
 </div>
 
+- **Description**: The images above show the dashboards for Karl and Cecilia.
+
 ## Technologies and Languages Used
 
 This project utilizes a range of technologies and programming languages to achieve its functionality:
@@ -27,11 +29,11 @@ These technologies were chosen for their performance, ease of use, and community
   <img src="https://img.shields.io/badge/Style-CSS_Module-F7DF1E%3F?style=for-the-badge&color=orange" alt="CSS Module Badge">
   <img src="https://img.shields.io/badge/-Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js Badge">
   <img src="https://img.shields.io/badge/-D3.js-F9A03C?style=for-the-badge&logo=d3dotjs&logoColor=white" alt="D3.js Badge">
-</div><br><hr>
+</div><br><hr style="border: 1px solid #ddd;">
 
  <img src="https://img.shields.io/badge/JSDoc-blue?style=for-the-badge&logo=jsdoc&logoColor=007ACC&labelColor=white" alt="JSDoc Badge"><br>
 - **JSDoc** is used for this project
-<hr>
+<hr style="border: 1px solid #ddd;">
 
 ## 1. General information
 
