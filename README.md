@@ -4,8 +4,8 @@
 </div><br>
 
  <div align="center" style="display: flex; justify-content: center;" >
-  <img src="public/Karl_resized_image_200px.png" alt="Karl Dashboard" style="margin: 0 25px;">
-  <img src="public/Cecilia_resized_image_200px.png" alt="Cecilia Dashboard" style="margin: 0 25px;">
+  <img src="public/Karl_resized_image_200px.png" alt="Karl Dashboard">
+  <img src="public/Cecilia_resized_image_200px.png" alt="Cecilia Dashboard">
 </div>
 
 - **Description**: The images above show the dashboards for Karl and Cecilia.
@@ -29,11 +29,12 @@ These technologies were chosen for their performance, ease of use, and community
   <img src="https://img.shields.io/badge/Style-CSS_Module-F7DF1E%3F?style=for-the-badge&color=orange" alt="CSS Module Badge">
   <img src="https://img.shields.io/badge/-Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js Badge">
   <img src="https://img.shields.io/badge/-D3.js-F9A03C?style=for-the-badge&logo=d3dotjs&logoColor=white" alt="D3.js Badge">
-</div><br><hr style="border: 1px solid #ddd;">
+</div><br>
 
+----
  <img src="https://img.shields.io/badge/JSDoc-blue?style=for-the-badge&logo=jsdoc&logoColor=007ACC&labelColor=white" alt="JSDoc Badge"><br>
 - **JSDoc** is used for this project
-<hr style="border: 1px solid #ddd;">
+----
 
 ## 1. General information
 
@@ -88,7 +89,25 @@ This project includes four endpoints that you will be able to use:
 - `http://localhost:3000/user/${userId}/average-sessions` - retrieves the average sessions of a user per day. The week starts on Monday.
 - `http://localhost:3000/user/${userId}/performance` - retrieves a user's performance (energy, endurance, etc.).
 
-
-
 **Warning, currently only two users have been mocked. They have userId 12 and 18 respectively.**
 
+----
+
+## 5. Installation - Frontend
+Clone the project <br>
+`https://github.com/olivertoussaint/SportSee-P12_OC.git`
+
+Go to the project directory<br>
+`cd sportsee`
+
+Install dependencies<br>
+`npm install`
+
+Start the server <br>
+`npm start`
+
+If you see the following message <br>
+Would you like to run the app on another port instead ? › (Y/n)<br>
+`Press Y to say Yes`
+
+----
